@@ -8,9 +8,10 @@ git:
   depth: 2
 
 language: cpp
+arch: amd64
 os:
   - linux
-  - osx
+#  - osx
 osx_image: xcode10.1
 compiler:
   - gcc
@@ -178,19 +179,20 @@ script:
            ${CMAKE_OPT}
            -DWITH_SSL=system -DWITH_ZLIB=system
   - make -j 4
-  - cd mysql-test
-  - travis_wait 30 ./mtr --force --max-test-fail=20 --parallel=4 --testcase-timeout=${TEST_CASE_TIMEOUT}
-         --suite=${MYSQL_TEST_SUITES}
-         --skip-test-list=unstable-tests
-         --skip-test=binlog.binlog_unsafe
+  - ls
+#  - cd mysql-test
+#  - travis_wait 30 ./mtr --force --max-test-fail=20 --parallel=4 --testcase-timeout=${TEST_CASE_TIMEOUT}
+#         --suite=${MYSQL_TEST_SUITES}
+#         --skip-test-list=unstable-tests
+#         --skip-test=binlog.binlog_unsafe
   - ccache --show-stats
   - df -h
 
-notifications:
-  irc:
-    channels:
-      - "chat.freenode.net#maria"
-    on_success: never # [always|never|change]
-    on_failure: never
-    template:
-      - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"
+#notifications:
+#  irc:
+#    channels:
+#      - "chat.freenode.net#maria"
+#    on_success: never # [always|never|change]
+#    on_failure: never
+#    template:
+#      - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"
